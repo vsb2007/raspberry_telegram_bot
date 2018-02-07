@@ -13,6 +13,8 @@
  - Регистрируем своего бота [здесь](https://core.telegram.org/bots#3-how-do-i-create-a-bot), запоминаем/копируем его токен и @имя.
  - Ставим docker и docker-compose (ищем в инете как)
  - Клонируем репозиторий в `/srv/tbot` - все конфиги заточены под эту директорию
+ - Редактируем [Dockerfile](https://github.com/vsb2007/raspberry_telegramm_bot/blob/master/Dockerfile) - можно все оптимизировать, чтобы было меньше слоев, 
+я оставил так, чтобы было понятнее, что происходит.
  - Собираем свой образ `sh docker_build.sh`, преварительно поменяв в `docker-compose.yml` [vsb2007](https://github.com/vsb2007/raspberry_telegramm_bot/blob/eb46c118f6f6fa0cabf7323a7100e22bac73e74f/docker-compose.yml#L5) 
 и в `docker_build.sh` [vsb2007](https://github.com/vsb2007/raspberry_telegramm_bot/blob/497bf655755e04479f1314706a1186c5d64d22d5/docker_build.sh#L3) на что-то свое
  - Открываем фаил [myconfig.py.sample](config/myconfig.py.sample), убираем расширение `.sample` и подставляем свои данные
