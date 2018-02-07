@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+
+token = 'token_bot'
+idBuilding = 'm70' # bot name in chat: all command must start whith /m70
+chadId = '-123456' #your chat with bot
+chadIdM70 = '-123456' #your works group chat
+url = 'tbot.example.net' # your external URL for set webhook
+tempcommand = 'temp' # command for get temp and humidity. whole command will be: /m70 temp

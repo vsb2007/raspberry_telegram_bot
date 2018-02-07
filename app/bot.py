@@ -1,6 +1,10 @@
 #!/bin/python
 # -*- coding: utf-8 -*-
 
+
+# версия на случай отсутствия в docker-compose
+#
+
 from __future__ import unicode_literals 
 from flask import Flask, request  # Импортируем модули
 import telegram
@@ -16,12 +20,10 @@ import myconfig
 app = Flask(__name__) # Создаем приложение
 app.debug = True
 
-
 MY_URL = myconfig.url
 TOKEN = myconfig.token
 TEMP_COMMAND = myconfig.tempcommand
 BUILD = myconfig.idBuilding
-CERT = 'fullchain1.pem'
 
 global bot
 bot = telegram.Bot(token=TOKEN)
@@ -48,17 +50,14 @@ def bot_send(bot,chat_id,message):
 
 def send_command(chat_id,command):
     if command.lower() in [TEMP_COMMAND]:
-	try:
-	    h,t = dht.read_retry(dht.DHT22, 4)
-    	    time.sleep(2)
-    	    h,t = dht.read_retry(dht.DHT22, 4)
+	h,t = dht.read_retry(dht.DHT22, 4)
+    	time.sleep(2)
+    	h,t = dht.read_retry(dht.DHT22, 4)
         #print 'temp:\t\t{0:0.1f}\nhumidity:\t{1:0.1f}'.format(t, h)
         #print 'temp on proc:\t'; os.system("/opt/vc/bin/vcgencmd measure_temp")
-    	    response = 'temp:\t\t{0:0.1f}\nhumidity:\t{1:0.1f}'.format(t, h)
+    	response = 'temp:\t\t{0:0.1f}\nhumidity:\t{1:0.1f}'.format(t, h)
     	#response += ' ' + str(chat_id)
-	    bot_send(bot,chat_id,response)
-	except Exception, e2:
-    	    bot_send(bot,chat_id,"нет доступа к gpio")
+	bot_send(bot,chat_id,response)
     else:
 	bot_send(bot,chat_id,"не тa команда")
 
@@ -110,12 +109,11 @@ def webhook_handler():
             print e
     return 'ok'
 
-
 ##Set_webhook 
+## uncomment on first start
 #hookurl = "https://%s/hook%s" % (MY_URL,TOKEN)
 #allowed_updates = ["message", "callback_query"]
 #max_connections = 40
-#URL = "https://api.telegram.org/bot%s/" % TOKEN
 #CERT = "fullchain1.pem"
 
 #@app.route('/set_webhook', methods=['GET', 'POST']) 
@@ -135,6 +133,8 @@ def webhook_handler():
 #    else: 
 #        return "webhook setup failed" 
 #
+
+## uncomment on last start
 #@app.route('/del_webhook', methods=['GET', 'POST']) 
 #def del_webhook(): 
 #    s = bot.deleteWebhook()
@@ -147,6 +147,8 @@ def webhook_handler():
 #    else: 
 #        return "webhook delete failed" 
 #
+
+## health check
 @app.route('/') 
 def index(): 
     return '<h1>Hello</h1>'

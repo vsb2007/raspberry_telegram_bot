@@ -1,0 +1,18 @@
+[Unit]
+Description=Serving our tbot
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=www-data
+WorkingDirectory=/app/tbot
+Environment="PATH=/app/tbot/bin"
+ExecStart=/app/tbot/bin/uwsgi --ini /app/tbot/tbot.ini
+Restart=always
+RestartSec=5
+
+[Install]
+Alias=tbot.service
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+  tbot:
+    image: vsb2007/tbot:latest
+    container_name: tbot-m70
+    volumes:
+      - /srv/tbot/config:/app/tbot/config
+      - /srv/tbot/socket:/app/tbot/socket
+      - /srv/tbot/log:/var/log/uwsgi
+      - /srv/tbot/tbot.ini:/app/tbot/tbot.ini
+      - /srv/tbot/bot.py:/app/tbot/bot.py
+    restart: always
+    cap_add:
+    - SYS_ADMIN
+    privileged: true
