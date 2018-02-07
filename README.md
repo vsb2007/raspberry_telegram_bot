@@ -17,6 +17,16 @@
  - Собираем свой образ `sh docker_build.sh`, преварительно поменяв в `docker-compose.yml` [vsb2007](https://github.com/vsb2007/raspberry_telegramm_bot/blob/eb46c118f6f6fa0cabf7323a7100e22bac73e74f/docker-compose.yml#L5) 
 и в `docker_build.sh` [vsb2007](https://github.com/vsb2007/raspberry_telegramm_bot/blob/497bf655755e04479f1314706a1186c5d64d22d5/docker_build.sh#L3) на что-то свое
  - Открываем фаил [myconfig.py.sample](config/myconfig.py.sample), убираем расширение `.sample` и подставляем свои данные
+ - Настраиваем nginx для домена (у меня есть домен, потому рассматриваю именно этот вариант)
+    -- Обязательно ssl (бесплатно [тут](https://letsencrypt.org/))
+    -- Секция
+    ```
+    location / {
+	include uwsgi_params;
+	uwsgi_pass unix:/srv/tbot/socket/tbot.sock;
+    }
+
+    ```
  - В файле `bot.py` раскомментируем секцию [Set_webhook](https://github.com/vsb2007/raspberry_telegramm_bot/blob/497bf655755e04479f1314706a1186c5d64d22d5/bot.py#L114)
 для настройки `webhook` для нашего бота. После настройки обратно комментируем.
 
