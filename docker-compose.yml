@@ -8,7 +8,6 @@ services:
       - /srv/tbot/config:/app/tbot/config
       - /srv/tbot/socket:/app/tbot/socket
       - /srv/tbot/log:/var/log/uwsgi
-      - /srv/tbot/tbot.ini:/app/tbot/tbot.ini
       - /srv/tbot/bot.py:/app/tbot/bot.py
     restart: always
     cap_add:
