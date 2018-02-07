@@ -13,6 +13,5 @@
 ### Установка и запуск
  - Ставим docker и docker-compose (ищем в инете как)
  - Клонируем репозиторий в `/src/tbot` - все конфиги заточены под эту директорию
- - Собираем свой образ `sh docker_build.sh`, преварительно поменяв в `docker-compose.yml`
-https://github.com/vsb2007/raspberry_telegramm_bot/blob/eb46c118f6f6fa0cabf7323a7100e22bac73e74f/docker-compose.yml#L5
+ - Собираем свой образ `sh docker_build.sh`, преварительно поменяв в `docker-compose.yml` [vsb2007](https://github.com/vsb2007/raspberry_telegramm_bot/blob/eb46c118f6f6fa0cabf7323a7100e22bac73e74f/docker-compose.yml#L5) на что-то свое
 
