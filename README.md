@@ -11,7 +11,7 @@
  - Python
 
 ### Установка и запуск
- - Регистрируем своего бота [здесь](https://core.telegram.org/bots#3-how-do-i-create-a-bot), запоминаем/копируем его токен.
+ - Регистрируем своего бота [здесь](https://core.telegram.org/bots#3-how-do-i-create-a-bot), запоминаем/копируем его токен и @имя.
  - Ставим docker и docker-compose (ищем в инете как)
  - Клонируем репозиторий в `/src/tbot` - все конфиги заточены под эту директорию
  - Собираем свой образ `sh docker_build.sh`, преварительно поменяв в `docker-compose.yml` [vsb2007](https://github.com/vsb2007/raspberry_telegramm_bot/blob/eb46c118f6f6fa0cabf7323a7100e22bac73e74f/docker-compose.yml#L5) 
@@ -36,4 +36,12 @@ location / {
 для настройки `webhook` для нашего бота. 
     * Заходим по ссылке `https://tbot.example.net/set_webhook` - если не видим `ok` - смотрим логи - ищем ошибку.
     * После настройки обратно комментируем.
+ - В теории все!!! запускаем бота `docker-compose up -d`
+ - Добавляем бота в группу или общаемся напрямую с ним. В данном примере команда `/m70 temp` вернет
+```
+temp:  21.8
+humidity: 25.5
+```
+или что-то похожее :-)
+
 
