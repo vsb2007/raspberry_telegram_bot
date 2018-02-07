@@ -32,9 +32,10 @@ location / {
  - Далее
     * Если нет возможности создать домен 3 уровня специально для бота, то `location /bla-bla` синхронизируем с [этой строчкой](https://github.com/vsb2007/raspberry_telegram_bot/blob/b89f186550285efe4b8b71708fcea555098a7387/bot.py#L66),
     и остальными аналогично (а может и нет, я не пробовал :))
- - В теории все!!! запускаем бота `docker-compose up -d`
- - В файле `bot.py` раскомментируем секцию [Set_webhook](https://github.com/vsb2007/raspberry_telegram_bot/blob/497bf655755e04479f1314706a1186c5d64d22d5/bot.py#L114)
+ - В теории все!!! 
+    * В файле `bot.py` раскомментируем секцию [Set_webhook](https://github.com/vsb2007/raspberry_telegram_bot/blob/497bf655755e04479f1314706a1186c5d64d22d5/bot.py#L114)
 для настройки `webhook` для нашего бота. 
+    * запускаем бота `docker-compose up -d`
     * Заходим по адресу `https://tbot.example.net/set_webhook` - если не видим `ok` - смотрим логи - ищем ошибку.
     * После настройки обратно комментируем.
  - Добавляем бота в группу или общаемся напрямую с ним. В данном примере команда `/m70 temp` вернет
