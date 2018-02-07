@@ -26,7 +26,7 @@ location / {
 	uwsgi_pass unix:/srv/tbot/socket/tbot.sock;
 }
 ```
- должна соответствовать [этой строчке](https://github.com/vsb2007/raspberry_telegramm_bot/blob/f2904be2290ce14fd414bc5954cfbd771170c50a/app/tbot.ini#L7)
+    должна соответствовать [этой строчке](https://github.com/vsb2007/raspberry_telegramm_bot/blob/f2904be2290ce14fd414bc5954cfbd771170c50a/app/tbot.ini#L7)
 
  - Далее
     * Если нет возможности создать домен 3 уровня специально для бота, то `location /bla-bla` синхронизируем с [этой строчкой](https://github.com/vsb2007/raspberry_telegramm_bot/blob/b89f186550285efe4b8b71708fcea555098a7387/bot.py#L66),
