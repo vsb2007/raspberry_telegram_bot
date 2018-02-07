@@ -20,13 +20,12 @@
  - Настраиваем nginx для домена (у меня есть домен, потому рассматриваю именно этот вариант)
     * Обязательно ssl (бесплатно [тут](https://letsencrypt.org/))
     * Секция
-    ```
->    location / {
->	include uwsgi_params;
->	uwsgi_pass unix:/srv/tbot/socket/tbot.sock;
->    }
-
-    ```
+```
+location / {
+	include uwsgi_params;
+	uwsgi_pass unix:/srv/tbot/socket/tbot.sock;
+}
+```
  - В файле `bot.py` раскомментируем секцию [Set_webhook](https://github.com/vsb2007/raspberry_telegramm_bot/blob/497bf655755e04479f1314706a1186c5d64d22d5/bot.py#L114)
 для настройки `webhook` для нашего бота. После настройки обратно комментируем.
 
