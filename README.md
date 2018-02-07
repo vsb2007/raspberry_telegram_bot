@@ -1,9 +1,8 @@
-# raspberry pi telegramm_bot
+# Raspberry Pi Telegramm Bot
 
-## Telegram бот на Raspberry Pi 
+## Telegram бот на Raspberry Pi в Docker контейнере
 ```
-По запросу показывает температуру с
-присоедиенного датчика DTH22
+По запросу показывает температуру с присоедиенного датчика DTH22
 ```
 
 ### Технологии
