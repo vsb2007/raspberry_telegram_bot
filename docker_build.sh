@@ -1,4 +1,4 @@
 #!/bin/bash
 
 export USER_NAME=vsb2007
-docker build -t $USER_NAME/tbot .
+docker build -t $USER_NAME/rpi-tbot .
