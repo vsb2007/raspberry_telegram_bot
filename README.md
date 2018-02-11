@@ -46,3 +46,7 @@ humidity: 25.5
 или что-то похожее :-)
 
 
+# git-lab-ci
+ - нужен ранер на rpi
+   * ставим как пишут [здесь](https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/install/linux-manually.md)
+   * 
