@@ -1,7 +1,6 @@
 image: resin/raspberrypi3-python:latest
 
 stages:
-  #- build
   - test
   - deploy
 
