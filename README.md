@@ -48,5 +48,7 @@ humidity: 25.5
 
 # git-lab-ci
  - нужен ранер на rpi
-   * ставим как пишут [здесь](https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/install/linux-manually.md)
-   * 
+   * ставим как пишут [здесь](https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/install/linux-manually.md) и регистрируем в gitlab
+   * правим конфиг до примерно [такого](./gitlab-runner/config.toml.example) состояния
+   * добавляем узера gitlab-runner (ну или как вы его обозвали) в группу docker. - `$sudo usermod -aG docker gitlab-runner`
+   * в настройках репозитория добавляем переменные `HUB_DOCKER_USERNAME` и `HUB_DOCKER_PASSWORD` (думаю смысл их понятен)

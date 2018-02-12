@@ -3,6 +3,7 @@ image: resin/raspberrypi3-python:latest
 stages:
   - build
   - test
+  - deploy
 
 build:
   stage: build
@@ -26,13 +27,29 @@ test:
     - branches
     - master
 
+deploy:
+  image: 1drop/docker:git
+  stage: deploy
+  when: manual
+  environment:
+    name: production
+  before_script:
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - apt-get install socat
+  script:
+    - deploy
+  only:
+    - master
+
 .auto_devops: &auto_devops |
   [[ "$TRACE" ]] && set -x
   export CI_REGISTRY="index.docker.io"
   export CI_APPLICATION_REPOSITORY=$CI_REGISTRY/$CI_PROJECT_PATH
   export CI_APPLICATION_TAG=$CI_COMMIT_REF_SLUG
   export CI_CONTAINER_NAME=ci_job_build_${CI_JOB_ID}
-  export TILLER_NAMESPACE="kube-system"
 
   function setup_docker() {
     if ! docker info &>/dev/null; then
@@ -60,6 +77,37 @@ test:
     echo ""
   }
 
+  function deploy() {
+##################
+
+    REMOTE=gitlab-runner@192.168.19.3 # todo: change here
+#TYPO3_IMAGE=registry.gitlab.com/vendor/customer/typo3 # todo: change here
+
+    echo " * OPENING DOCKER SOCKET TUNNEL"
+    socat \
+      "UNIX-LISTEN:/tmp/docker.sock,reuseaddr,fork" \
+      "EXEC:'ssh -kTax $REMOTE socat STDIO UNIX-CONNECT\:/var/run/docker.sock'" \
+      &
+      export DOCKER_HOST=unix:///tmp/docker.sock
+
+    #export COMPOSE_PROJECT_NAME=tbot # todo: change here
+    #echo " * LOGIN WITH GITLAB-CI TOKEN"
+    #docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    # backup current image if already present locally
+    #if [[ ! "$(docker images -q ${TYPO3_IMAGE} 2> /dev/null)" == "" ]]; then
+    #echo " * BACKING UP CURRENT IMAGE VERSION"
+    #docker tag ${TYPO3_IMAGE} typo3-backup
+    #fi
+    echo " * PULLING NEW IMAGES"
+    docker-compose -f docker-compose.yml pull
+    echo " * UPDATING RUNNING CONTAINERS"
+    docker-compose -f docker-compose.yml up -d
+    echo " * CLEANING OLD IMAGES"
+    ssh -t ${REMOTE} "docker-clean images"
+
+
+#############
+  }
 
 before_script:
   - *auto_devops

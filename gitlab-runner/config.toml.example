@@ -1,0 +1,16 @@
+concurrent = 1
+check_interval = 0
+
+[[runners]]
+  name = "rpi-runner"
+  url = "https://gitlab.domen.net"
+  token = "12345"
+  executor = "docker"
+  [runners.docker]
+    tls_verify = false
+    image = "resin/raspberrypi3-python:latest"
+    privileged = true
+    disable_cache = false
+    volumes = ["/cache"]
+    shm_size = 0
+  [runners.cache]

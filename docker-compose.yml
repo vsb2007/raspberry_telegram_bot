@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   tbot:
-    image: vsb2007/rpi-tbot:latest
+    image: vsb2007/rpi-tbot:master
     container_name: tbot-m70
     volumes:
       - /srv/tbot/config:/app/tbot/config
