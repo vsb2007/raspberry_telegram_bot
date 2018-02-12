@@ -1,16 +1,7 @@
 image: resin/raspberrypi3-python:latest
 
 stages:
-  - test
   - deploy
-
-test:
-  stage: test
-  script:
-    - exit 0
-  only:
-    - branches
-    - master
 
 deploy:
   stage: deploy
@@ -20,7 +11,7 @@ deploy:
     name: production
   before_script:
     - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | ssh-add
+    - ssh-add < $SSH_PRIVATE_KEY
     - mkdir -p ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - apk add socat
