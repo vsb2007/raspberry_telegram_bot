@@ -19,8 +19,9 @@ deploy:
   environment:
     name: production
   before_script:
+    - apk add bash
     - eval $(ssh-agent -s)
-    - ssh-add <$(echo "$SSH_PRIVATE_KEY")
+    - /bin/bash ssh-add < (echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - apk add socat
