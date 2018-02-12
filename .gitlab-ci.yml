@@ -78,10 +78,10 @@ deploy:
   }
 
   function deploy() {
-##################
+
 
     REMOTE=gitlab-runner@192.168.19.3 # todo: change here
-#TYPO3_IMAGE=registry.gitlab.com/vendor/customer/typo3 # todo: change here
+    #TYPO3_IMAGE=registry.gitlab.com/vendor/customer/typo3 # todo: change here
 
     echo " * OPENING DOCKER SOCKET TUNNEL"
     socat \
@@ -89,8 +89,7 @@ deploy:
       "EXEC:'ssh -kTax $REMOTE socat STDIO UNIX-CONNECT\:/var/run/docker.sock'" \
       &
       export DOCKER_HOST=unix:///tmp/docker.sock
-
-    #export COMPOSE_PROJECT_NAME=tbot # todo: change here
+    export COMPOSE_PROJECT_NAME=tbot # todo: change here
     #echo " * LOGIN WITH GITLAB-CI TOKEN"
     #docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # backup current image if already present locally
@@ -104,9 +103,6 @@ deploy:
     docker-compose -f docker-compose.yml up -d
     echo " * CLEANING OLD IMAGES"
     ssh -t ${REMOTE} "docker-clean images"
-
-
-#############
   }
 
 before_script:
