@@ -64,8 +64,8 @@ deploy:
     echo "Building Dockerfile-based application..."
     echo `git show --format="%h" HEAD | head -1` > build_info.txt
     echo `git rev-parse --abbrev-ref HEAD` >> build_info.txt
-    echo "pull image if exist $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG"
-    docker pull $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
+    #    echo "pull image if exist $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG"
+    #    docker pull $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
     docker build -t "$CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG" .
     echo "docker username: $HUB_DOCKER_USERNAME"
     if [[ -n "$HUB_DOCKER_USERNAME" ]]; then

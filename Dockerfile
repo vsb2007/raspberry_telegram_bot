@@ -2,7 +2,7 @@ FROM resin/raspberrypi3-python:latest
 # Enable systemd
 ENV INITSYSTEM on
 # Your code goes here
-RUN apt-get update
+#RUN apt-get update
 RUN apt-get install python3-pip
 WORKDIR /app
 RUN virtualenv tbot
