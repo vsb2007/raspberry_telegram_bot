@@ -26,7 +26,7 @@ CERT = 'fullchain1.pem'
 global bot
 bot = telegram.Bot(token=TOKEN)
 
-bot.send_message(myconfig.chadId, 'Hello new-1!!!')
+bot.send_message(myconfig.chadId, 'Hello new-2!!!')
 
 def bot_send(bot,chat_id,message):
     i=0

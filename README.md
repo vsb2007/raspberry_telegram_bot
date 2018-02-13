@@ -52,3 +52,6 @@ humidity: 25.5
    * правим конфиг до примерно [такого](./gitlab-runner/config.toml.example) состояния
    * добавляем узера gitlab-runner (ну или как вы его обозвали) в группу docker. - `$sudo usermod -aG docker gitlab-runner`
    * в настройках репозитория добавляем переменные `HUB_DOCKER_USERNAME` и `HUB_DOCKER_PASSWORD` (думаю смысл их понятен)
+   * ставим на ноде `socat`
+   * переводим ноду на подключение по ssh ключу
+   * в настройках репозитория создаем переменную `SSH_PRIVATE_KEY` с соответствующим содержанием

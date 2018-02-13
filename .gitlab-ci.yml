@@ -4,7 +4,30 @@ variables:
     DOCKER_DRIVER: overlay2
 
 stages:
+  - build
+  - test
   - production
+
+
+build:
+  stage: build
+  image: docker:git
+  services:
+    - docker:dind
+  script:
+    - setup_docker
+    - build
+  only:
+    - branches
+    - master
+
+test:
+  stage: test
+  script:
+    - exit 0
+  only:
+    - branches
+    - master
 
 production:
   stage: production
@@ -64,7 +87,7 @@ production:
     mkdir -p ~/.ssh
     echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
-    REMOTE=gitlab-runner@192.168.19.3 # todo: change here
+    REMOTE=gitlab-runner@IP_NODE_PROD # todo: change here
     #TYPO3_IMAGE=registry.gitlab.com/vendor/customer/typo3 # todo: change here
 
     echo " * OPENING DOCKER SOCKET TUNNEL"
@@ -86,11 +109,11 @@ production:
     apk add --no-cache py-pip
     pip install docker-compose
     echo " * PULLING NEW IMAGES"
-    #docker-compose -f docker-compose.yml pull
+    docker-compose -f docker-compose.yml pull
     echo " * UPDATING RUNNING CONTAINERS"
     docker-compose -f docker-compose.yml up -d
-    echo " * CLEANING OLD IMAGES"
-    ssh -t ${REMOTE} "docker-clean images"
+    #echo " * CLEANING OLD IMAGES"
+    #ssh -t ${REMOTE} "docker-clean images"
   }
 
 before_script:
