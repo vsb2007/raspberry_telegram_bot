@@ -86,7 +86,7 @@ production:
     apk add --no-cache py-pip
     pip install docker-compose
     echo " * PULLING NEW IMAGES"
-    docker-compose -f docker-compose.yml pull
+    #docker-compose -f docker-compose.yml pull
     echo " * UPDATING RUNNING CONTAINERS"
     docker-compose -f docker-compose.yml up -d
     echo " * CLEANING OLD IMAGES"
