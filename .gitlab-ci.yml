@@ -56,14 +56,15 @@ production:
   function deploy() {
     echo "Start Deploy"
     #  before_script:
+    apk update
+    apk add openssh-client
+    apk add socat
     eval $(ssh-agent -s)
     echo "$SSH_PRIVATE_KEY" > tt.txt
     chmod 0600 tt.txt
     ssh-add tt.txt
     mkdir -p ~/.ssh
     echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    apk update
-    apk add socat
 
     REMOTE=gitlab-runner@192.168.19.3 # todo: change here
     #TYPO3_IMAGE=registry.gitlab.com/vendor/customer/typo3 # todo: change here
