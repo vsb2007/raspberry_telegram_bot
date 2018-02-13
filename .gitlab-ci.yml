@@ -1,11 +1,11 @@
 image: resin/raspberrypi3-python:latest
 
 stages:
-  - deploy
+  - production
 
-deploy:
-  stage: deploy
-  image: docker:git
+production:
+  stage: production
+  image: docker
   #when: manual
   environment:
     name: production
@@ -13,15 +13,6 @@ deploy:
     - docker:dind
   variables:
     DOCKER_DRIVER: overlay2
-  before_script:
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" > tt.txt
-    - chmod 0600 tt.txt
-    - ssh-add tt.txt
-    - mkdir -p ~/.ssh
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - apk update
-    - apk add socat
   script:
     - deploy
   only:
@@ -64,6 +55,16 @@ deploy:
 
   function deploy() {
     echo "Start Deploy"
+    #  before_script:
+    eval $(ssh-agent -s)
+    echo "$SSH_PRIVATE_KEY" > tt.txt
+    chmod 0600 tt.txt
+    ssh-add tt.txt
+    mkdir -p ~/.ssh
+    echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    apk update
+    apk add socat
+
     REMOTE=gitlab-runner@192.168.19.3 # todo: change here
     #TYPO3_IMAGE=registry.gitlab.com/vendor/customer/typo3 # todo: change here
 
