@@ -18,6 +18,8 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - apk update
     - apk add socat
+  services:
+    - docker:dind
   script:
     - deploy
   only:
