@@ -83,6 +83,8 @@ production:
     #fi
     #apk add 'py-pip==8.1.2-r0'
     #pip install 'docker-compose==1.8.0'
+    - apk add --no-cache py-pip
+    - pip install docker-compose
     echo " * PULLING NEW IMAGES"
     docker-compose -f docker-compose.yml pull
     echo " * UPDATING RUNNING CONTAINERS"
