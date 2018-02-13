@@ -87,7 +87,7 @@ production:
     mkdir -p ~/.ssh
     echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
-    REMOTE=gitlab-runner@IP_NODE_PROD # todo: change here
+    REMOTE=gitlab-runner@$IP_NODE_PROD # todo: change here
     #TYPO3_IMAGE=registry.gitlab.com/vendor/customer/typo3 # todo: change here
 
     echo " * OPENING DOCKER SOCKET TUNNEL"
