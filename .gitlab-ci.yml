@@ -9,6 +9,10 @@ deploy:
   #when: manual
   environment:
     name: production
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
   before_script:
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" > tt.txt
@@ -18,8 +22,6 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - apk update
     - apk add socat
-  services:
-    - docker:dind
   script:
     - deploy
   only:
