@@ -83,6 +83,8 @@ production:
     #echo " * BACKING UP CURRENT IMAGE VERSION"
     #docker tag ${TYPO3_IMAGE} typo3-backup
     #fi
+    apk add 'py-pip==8.1.2-r0'
+    pip install 'docker-compose==1.8.0'
     echo " * PULLING NEW IMAGES"
     docker-compose -f docker-compose.yml pull
     echo " * UPDATING RUNNING CONTAINERS"
