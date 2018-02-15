@@ -57,6 +57,7 @@ production:
   function build() {
 
     echo "Building Dockerfile-based application..."
+    echo "app: $CI_PROJECT_PATH:$CI_APPLICATION_TAG"
     echo `git show --format="%h" HEAD | head -1` > build_info.txt
     echo `git rev-parse --abbrev-ref HEAD` >> build_info.txt
     #    echo "pull image if exist $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG"
@@ -70,7 +71,8 @@ production:
     fi
 
     echo "Pushing to GitLab Container Registry..."
-    docker push "$CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG"
+    #docker push "$CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG"
+    docker push "$CI_PROJECT_PATH:$CI_APPLICATION_TAG"
     echo ""
   }
 
